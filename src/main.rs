@@ -1,6 +1,6 @@
 use rand::seq::IteratorRandom;
 use std::{
-    io::{Write, self},
+    io::Write,
     process::exit,
 };
 use text_io::read;

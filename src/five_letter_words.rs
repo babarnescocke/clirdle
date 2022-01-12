@@ -1,3 +1,5 @@
+// probably more elegant ways of doing this, this is a 
+
 pub mod five_letter_words {
 pub const FIVE_LETTER_WORDS: &str = "aahed
 aalii
