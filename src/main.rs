@@ -1,6 +1,6 @@
 use rand::seq::IteratorRandom;
 use std::{
-    io::{Write},
+    io::{Write, self},
     process::exit,
 };
 use text_io::read;
@@ -16,7 +16,7 @@ type e and return to exit");
 }
 
 fn is_line_in_list(checking_for: &String) -> bool {
-	for line in crate::five_letter_words::five_letter_words::five_letter_words.lines() {
+	for line in crate::five_letter_words::five_letter_words::FIVE_LETTER_WORDS.lines() {
     	if &line == checking_for {
     		return true;
     	}
@@ -27,7 +27,7 @@ fn is_line_in_list(checking_for: &String) -> bool {
 
 // this function simply does what its name - it takes a file path as input and returns a random line from that file. Assuming our wordlist is the path, we'll you get a word from the wordlist.
 fn random_line_from_list() -> String {
-    	let lines = crate::five_letter_words::five_letter_words::five_letter_words
+    	let lines = crate::five_letter_words::five_letter_words::FIVE_LETTER_WORDS
     	.lines()
     	.map(|l| l.to_string());
 
@@ -91,13 +91,13 @@ fn walk_word(word_to_guess: String, word_from_user: String) {
 	for c in word_from_user.chars() {
 		if word_to_guess.contains(c) {
 			if word_to_guess.find(c) == word_from_user.find(c) {
-				stdout.set_color(ColorSpec::new().set_fg(Some(Color::Green)));
-				write!(&mut stdout, "{}", c);
-				stdout.reset();
+				stdout.set_color(ColorSpec::new().set_fg(Some(Color::Green))).expect("unable to set color!");
+				write!(&mut stdout, "{}", c).expect("unable to write to stdout!");
+				stdout.reset().expect("unable to set color!");
 			} else {
-				stdout.set_color(ColorSpec::new().set_fg(Some(Color::Yellow)));
-				write!(&mut stdout, "{}", c);
-				stdout.reset();
+				stdout.set_color(ColorSpec::new().set_fg(Some(Color::Yellow))).expect("unable to set color!");
+				write!(&mut stdout, "{}", c).expect("unable to write to stdout!");
+				stdout.reset().expect("unable to set color!");
 			}
 		} else {
 			print!("_");

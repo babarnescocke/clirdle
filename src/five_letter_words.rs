@@ -1,5 +1,5 @@
 pub mod five_letter_words {
-pub const five_letter_words: &str = "aahed
+pub const FIVE_LETTER_WORDS: &str = "aahed
 aalii
 aargh
 aaron
