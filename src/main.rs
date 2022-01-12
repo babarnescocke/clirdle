@@ -8,7 +8,7 @@ use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 mod five_letter_words;
 
 fn main() {
-	println!("Welcome to Cliardle! Guess what 5 letter word your computer is thinking of!
+	println!("Welcome to Clirdle! Guess what 5 letter word your computer is thinking of!
 type e and return to exit");
 	loop {
 		guessing_sequence();
