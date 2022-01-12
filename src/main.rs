@@ -1,7 +1,6 @@
 use rand::seq::IteratorRandom;
 use std::{
-    fs::File,
-    io::{BufRead, BufReader, self, Write},
+    io::{Write},
     process::exit,
 };
 use text_io::read;
@@ -18,7 +17,7 @@ type e and return to exit");
 
 fn is_line_in_list(checking_for: &String) -> bool {
 	for line in crate::five_letter_words::five_letter_words::five_letter_words.lines() {
-    	if &line.unwrap() == checking_for {
+    	if &line == checking_for {
     		return true;
     	}
 	}
@@ -28,16 +27,17 @@ fn is_line_in_list(checking_for: &String) -> bool {
 
 // this function simply does what its name - it takes a file path as input and returns a random line from that file. Assuming our wordlist is the path, we'll you get a word from the wordlist.
 fn random_line_from_list() -> String {
-
-    	let lines = crate::five_letter_words::five_letter_words::five_letter_words.lines().map(|l| l.to_string());
+    	let lines = crate::five_letter_words::five_letter_words::five_letter_words
+    	.lines()
+    	.map(|l| l.to_string());
 
     	lines
         	.choose(&mut rand::thread_rng())
-        	.expect("File had no lines")
+        	.unwrap()
 }
 
 fn guessing_sequence() {
-	let word_to_guess = random_line_from_list());
+	let word_to_guess = random_line_from_list();
 	for i in 1..6 {
 		println!("Guess number {}", i);
 		// this is a loop that just keeps waiting for user input and parsing it. If e for exit, checks for that. Otherwise it tries to validate input, is input 5 letters.
@@ -48,25 +48,23 @@ fn guessing_sequence() {
 			} else if input.len() == 5 {
 				if is_line_in_list(&input) {
 				//if we got here we have a valid word that needs to be checked against our word_to_guess.
-				if input == word_to_guess {
-					winning_sequence();
-					break
+					if input == word_to_guess {
+						winning_sequence();
+						break
+					} else {
+						// if user didn't win we need to check every letter for if it contains the letter and for placement.
+						walk_word(word_to_guess.clone(), input);
+						break
+					}
+					} else {
+						println!("Your guess, {}, was not in wordlist. Try again!", input);
+					}
 				} else {
-					// if user didn't win we need to check every letter for if it contains the letter and for placement.
-					walk_word(word_to_guess.clone(), input);
-					break
+				println!("Your guess needs to be 5 characters long. Try again.");
 				}
-				} else {
-					println!("Your guess, {}, was not in wordlist. Try again!", input);
-				}
-			} else {
-			println!("Your guess needs to be 5 characters long. Try again.")
 			}
-		}
-
 	}
 	println!("The word your computer was thinking about was {}.", word_to_guess );
-	
 }
 
 fn exit_input() {
